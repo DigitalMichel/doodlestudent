@@ -1,0 +1,12 @@
+FROM maven:3-adoptopenjdk-11
+RUN mkdir "api"
+COPY . ./api
+WORKDIR /api
+
+#mvn install
+RUN chmod +x mvnw
+RUN mvn -N wrapper:wrapper
+RUN ./mvnw clean package -Dquarkus.package.type=uber-jar
+RUN java -jar target/tlcdemoApp-1.0.0-SNAPSHOT-runner.jar
+
+#    /bin/bash -c "./tlcdemoApp-1.0.0-SNAPSHOT-runner"
