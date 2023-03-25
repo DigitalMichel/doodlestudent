@@ -1,5 +1,17 @@
 version: "3.8"
 services:
+  front:
+    image: front
+    container_name: front
+    ports:
+      - "80:80"
+    depends_on:
+      api:
+        condition: service_started
+#    volumes:
+#      - ./front/nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+#    restart: always
+
   api:
     image: api
     container_name: api
@@ -8,6 +20,7 @@ services:
           condition: service_healthy
     ports:
       - "8080:8080"
+    restart: always
 
   db:
     image: mysql
