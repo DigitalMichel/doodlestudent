@@ -11,4 +11,3 @@ RUN npx ng build --prod
 FROM nginx:stable-alpine
 
 COPY --from=frontBuild /app/front/dist/tlcfront /usr/share/nginx/html
-COPY --from=frontBuild /app/front/nginx/hosts /etc/

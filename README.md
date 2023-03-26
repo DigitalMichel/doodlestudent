@@ -12,7 +12,7 @@ Benveniste Jules
 
 ## Difficultés rencontrées
 
-- Le front ne compilait sur aucune de nos machines et nous avons passé *beaucoup* de temps à essayer de régler ce problème
+- Le front ne compilait sur aucune de nos machines et nous avons passé *BEAUCOUP* de temps à essayer de régler ce problème.
 - Accès aux vm de la faculté bloqué du 25 au 26/03.
 
 
@@ -22,10 +22,22 @@ Nous avions prévu soit d'utiliser Jenkins, soit de créer un repo git vide sur 
 
 
 ## Etat de l'application
+
 - front: fonctionnel;
 - api: fonctionnel;
-- nginx: non-fonctionnel;
+- nginx: fonctionnel - Problème avec la COPY, le fichier ```etc/hosts``` est donc passé par volume.
 - letsencrypt: non implémenté;
 - ufw: non implémenté;
 - chaîne de monitoring: non implémenté;
 - keycloak: non implémenté;
+
+ 
+
+## Lancer le projet
+Aller dans le dossier API (```cd api```)puis exécuter, via votre Terminal de commande, la commande suivante: ```docker-compose up -d```.
+
+
+Si vous êtes confronté à cette erreur lorsque vous avez effectué la commande **docker-compose**
+```Err: CryptographyDeprecationWarning: Python 3.6 is no longer supported by the Python core team.```.
+Cela est sans doute dû au deamon docker qui n'est pas lancé, faites la commande suivante: ```sudo docker systemctl start docker```. 
+
