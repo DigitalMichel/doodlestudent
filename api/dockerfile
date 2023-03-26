@@ -1,14 +1,11 @@
-FROM maven:3-adoptopenjdk-11
-RUN mkdir "api"
-COPY . ./api
-WORKDIR /api
+FROM maven:3-adoptopenjdk-11 as apiBuild
 
-#mvn install
-RUN chmod +x mvnw
-RUN mvn -N wrapper:wrapper
-RUN mvn package -Pnative -Dquarkus.native.container-build=true
-ENTRYPOINT ./target/tlcdemoApp-1.0.0-SNAPSHOT-runner
-#RUN mvn clean package -Dquarkus.package.type=uber-jar
-#ENTRYPOINT java -jar target/tlcdemoApp-1.0.0-SNAPSHOT-runner.jar
+LABEL stage=build
+WORKDIR /app/build
 
-#    /bin/bash -c "./tlcdemoApp-1.0.0-SNAPSHOT-runner"
+COPY . .
+RUN mvn clean package -Dquarkus.package.type=uber-jar
+
+FROM adoptopenjdk/openjdk11
+COPY --from=apiBuild /app/build/target/tlcdemoApp-1.0.0-SNAPSHOT-runner.jar /app/
+ENTRYPOINT java -jar /app/tlcdemoApp-1.0.0-SNAPSHOT-runner.jar

@@ -1,6 +1,7 @@
 version: "3.8"
 services:
   front:
+    build: ../front/
     image: front
     container_name: front
     ports:
@@ -8,11 +9,13 @@ services:
     depends_on:
       api:
         condition: service_started
-#    volumes:
-#      - ./front/nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
-#    restart: always
+    volumes:
+      - ./front/nginx/hosts:/etc/nginx/conf.d/hosts
+#      - ./front/nginx/hosts:/etc/hosts
+    restart: always
 
   api:
+    build: .
     image: api
     container_name: api
     depends_on:

@@ -1,0 +1,7 @@
+127.0.0.1	localhost api.admin.api api.admin.db api.admin.etherpad api.admin.mail
+::1	localhost ip6-localhost ip6-loopback api.admin.api api.admin.db api.admin.etherpad api.admin.mail
+fe00::0	ip6-localnet
+ff00::0	ip6-mcastprefix
+ff02::1	ip6-allnodes
+ff02::2	ip6-allrouters
+172.25.0.6	dbecf4d1d59a

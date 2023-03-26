@@ -1,14 +1,14 @@
-FROM node:gallium-alpine AS front
+FROM node:gallium-alpine3.13 AS frontBuild
 
-LABEL stage=front
+LABEL stage=build
 RUN apk --no-cache add git
 RUN git clone https://github.com/barais/doodlestudent.git /app --depth=1
 
 WORKDIR /app/front
 RUN npm i
 RUN npx ng build --prod
-RUN echo "127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4 example.com example.net" > ./etc/hosts
 
 FROM nginx:stable-alpine
 
-COPY --from=front /app/front/dist/tlcfront /usr/share/nginx/html
+COPY --from=frontBuild /app/front/dist/tlcfront /usr/share/nginx/html
+COPY --from=frontBuild /app/front/nginx/hosts /etc/
